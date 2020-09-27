@@ -1,6 +1,6 @@
-name: gbans
+name: gbans-english
 main: lovetwice1012\gbans\Main
-version: 1.7.0
+version: 1.0.0
 api: 
   - 3.0.0
   - 4.0.0
@@ -8,10 +8,10 @@ auther: lovetwice1012
 
 commands:
   gban:
-    description: ユーザーをGbanします。
+    description: You are a bad boy!
     usage: /gban username reason
     permission: op
   gunban:
-    description: ユーザーのGbanを取り消します。
+    description: Oops.  It looks like something went wrong.  You weren't the bad guy ...
     usage: /gunban username
     permission: op
