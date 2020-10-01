@@ -9,14 +9,19 @@ use pocketmine\Server;
 use pocketmine\utils\VersionString;
 use lovetwice1012\gbans\Main;
 class unban extends AsyncTask {
+public function __construct($name,$user,$sender) {
+    $this->name = $name;
+    $this->user = $user;
+    $this->sender = $sender;
+  }
 
   public function onRun($name,$user,$sender) {
         $url = 'http://passionalldb.s1008.xrea.com/gban/unban.php';
 
         $data = array(
             'unban' => 'unban',
-            'username' => $name,
-            'user' => $user
+            'username' => $this->$name,
+            'user' => $this->$user
         );
 
 
@@ -33,10 +38,10 @@ class unban extends AsyncTask {
         $result = @file_get_contents($url, false, stream_context_create($context));
         if($result=="success"){
             $this->setResult(true);
-                	           		$sender->sendMessage("Canceled the damage report from this server. response: \"".$this->message."\"");
+                	           		$this->$sender->sendMessage("Canceled the damage report from this server. response: \"".$this->message."\"");
         }else{
-		     	$sender->sendMessage("The damage report from this server could not be undone.  The request has been rejected. response: \"".$this->message."\"");
-                    	$sender->sendMessage("§4[Caution] The UNBAN command is executed by the OP who banned the person, and will be rejected unless it is executed on the server that was when the person was banned.");
+		     	$this->$sender->sendMessage("The damage report from this server could not be undone.  The request has been rejected. response: \"".$this->message."\"");
+                    	$this->$sender->sendMessage("§4[Caution] The UNBAN command is executed by the OP who banned the person, and will be rejected unless it is executed on the server that was when the person was banned.");
 		     $this->setResult(false);
                 	
         }
