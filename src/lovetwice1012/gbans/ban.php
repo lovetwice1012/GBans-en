@@ -51,14 +51,14 @@ public function __construct($name,$reason,$user,$ip,$uid,$sender,$player) {
         if($result=="success"){
             $this->setResult(true);
             
-            if ($this->$player instanceof Player){
-			          $this->$player->setBanned(true);
+            if ($this->player instanceof Player){
+			          $this->player->setBanned(true);
 	          }	    
-		        	$this->$sender->sendMessage("Global ban. response: \"".$result."\"");  
+		        	$this->sender->sendMessage("Global ban. response: \"".$result."\"");  
                	 	
 			        }else{
              $this->setResult(false);
-             $this->$sender->sendMessage("Global ban could not be done.  Please try again after a while. response: \"".$result."\"");
+             $this->sender->sendMessage("Global ban could not be done.  Please try again after a while. response: \"".$result."\"");
                 	
         }
   }
