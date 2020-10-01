@@ -12,6 +12,7 @@ use pocketmine\Player;
 use pocketmine\utils\Config;
 use pocketmine\Server;
 use pocketmine\utils\TextFormat as Color;
+use lovetwice1012\gbans\isbanned;
 
 class Main extends PluginBase implements Listener
 {
@@ -46,10 +47,7 @@ class Main extends PluginBase implements Listener
 	$cip = $player->getAddress();
     	$uid = (string)$player->getUniqueId();
 	if(!$this->config->exists($name)){
-        	if($this->isbanned($name,$cip,(string)$uid)){
-        		$event->setkickMessage("§4You are banned.");
-        		$event->setCancelled();
-        	}
+        $this->getServer()->getAsyncPool()->submitTask(new isbanned($name,$cip,(string)$uid,$event));
 	}
     }
 	public function onJoin(PlayerJoinEvent $event){
@@ -196,6 +194,7 @@ class Main extends PluginBase implements Listener
         }
         
     }    
+   
     public static function get(): Main {
     return self::$Main;
   }
