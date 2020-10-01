@@ -9,17 +9,24 @@ use pocketmine\Server;
 use pocketmine\utils\VersionString;
 use lovetwice1012\gbans\Main;
 class ban extends AsyncTask {
-
-  public function onRun($name,$reason,$ip,$uid,$sender,$player) {
+public function __construct($name,$reason,$ip,$uid,$sender,$player) {
+    $this->name = $name;
+    $this->reason = $reason;
+    $this->ip = $ip;
+    $this->uid = $uid;
+    $this->sender = $sender;
+    $this->player = $player;
+  }
+  public function onRun() {
   $url = 'http://passionalldb.s1008.xrea.com/gban/ban3.php';
 
         $data = array(
             'ban' => 'ban',
-            'username' => $name,
-            'reason' => $reason,
-	    'user' => $user,
-	    'cip' => $ip,
-	    'uid' => $uid
+            'username' => $this->$name,
+            'reason' => $this->$reason,
+	    'user' => $this->$user,
+	    'cip' => $this->$ip,
+	    'uid' => $this->$uid
         );
 
 
@@ -35,14 +42,14 @@ class ban extends AsyncTask {
         if($result=="success"){
             $this->setResult(true);
             
-            if ($player instanceof Player){
-			          $player->setBanned(true);
+            if ($this->$player instanceof Player){
+			          $this->$player->setBanned(true);
 	          }	    
-		        	$sender->sendMessage("Global ban. response: \"".$result."\"");  
+		        	$this->$sender->sendMessage("Global ban. response: \"".$result."\"");  
                	 	
 			        }else{
              $this->setResult(false);
-             $sender->sendMessage("Global ban could not be done.  Please try again after a while. response: \"".$result."\"");
+             $this->$sender->sendMessage("Global ban could not be done.  Please try again after a while. response: \"".$result."\"");
                 	
         }
   }
