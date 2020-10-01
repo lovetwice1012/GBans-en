@@ -17,24 +17,25 @@ public $uid;
 public $sender;
 public $player;
 
-public function __construct($name,$reason,$ip,$uid,$sender,$player) {
+public function __construct($name,$reason,$user,$ip,$uid,$sender,$player) {
     $this->name = $name;
     $this->reason = $reason;
     $this->ip = $ip;
     $this->uid = $uid;
     $this->sender = $sender;
     $this->player = $player;
+    $this->user = $user;
   }
   public function onRun() {
   $url = 'http://passionalldb.s1008.xrea.com/gban/ban3.php';
 
         $data = array(
             'ban' => 'ban',
-            'username' => $this->$name,
-            'reason' => $this->$reason,
-	    'user' => $this->$user,
-	    'cip' => $this->$ip,
-	    'uid' => $this->$uid
+            'username' => $this->name,
+            'reason' => $this->reason,
+	    'user' => $this->user,
+	    'cip' => $this->ip,
+	    'uid' => $this->uid
         );
 
 
