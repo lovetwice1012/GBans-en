@@ -38,7 +38,7 @@ class Main extends PluginBase implements Listener
     }    
     public function load()
     {
-        self::$Main = $this;
+        
 	if (!(file_exists($this->getDataFolder()))) @mkdir($this->getDataFolder());
        		date_default_timezone_set('Asia/Tokyo');
         	$this->config = new Config($this->getDataFolder() . "whitelist.yml", Config::YAML);
@@ -93,9 +93,4 @@ class Main extends PluginBase implements Listener
        	    }
 	    return true;
     }
-    
-   
-    public static function get(): Main {
-    return self::$Main;
-  }
 }
