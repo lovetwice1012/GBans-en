@@ -7,8 +7,16 @@ namespace lovetwice1012\gbans;
 use pocketmine\scheduler\AsyncTask;
 use pocketmine\Server;
 use pocketmine\utils\VersionString;
+use pocketmine\Player;
 use lovetwice1012\gbans\Main;
 class ban extends AsyncTask {
+public $name;
+public $reason;
+public $ip;
+public $uid;
+public $sender;
+public $player;
+
 public function __construct($name,$reason,$ip,$uid,$sender,$player) {
     $this->name = $name;
     $this->reason = $reason;
