@@ -13,6 +13,10 @@ use pocketmine\utils\Config;
 use pocketmine\Server;
 use pocketmine\utils\TextFormat as Color;
 use lovetwice1012\gbans\isbanned;
+use lovetwice1012\gbans\ban;
+use lovetwice1012\gbans\unban;
+
+
 
 class Main extends PluginBase implements Listener
 {
@@ -85,78 +89,11 @@ class Main extends PluginBase implements Listener
                	 	$sender->sendMessage(" §bHou to use : /gunban gamertag");
                 	return true;
             	}
-            	if($this->unban($args[0],$sender->getName())){
-           		$sender->sendMessage("Canceled the damage report from this server. response: \"".$this->message."\"");
-                	return true;
-            	}else{
-		     	$sender->sendMessage("The damage report from this server could not be undone.  The request has been rejected. response: \"".$this->message."\"");
-                    	$sender->sendMessage("§4[Caution] The UNBAN command is executed by the OP who banned the person, and will be rejected unless it is executed on the server that was when the person was banned.");
-		    	return true;
-            	}
-		
+                $this->getServer()->getAsyncPool()->submitTask(new unban($args[0],$sender->getName(),$sender); 		
        	    }
 	    return true;
     }
     
-    public function ban($name,$reason,$user,$ip,$uid){
-
-        $url = 'http://passionalldb.s1008.xrea.com/gban/ban3.php';
-
-        $data = array(
-            'ban' => 'ban',
-            'username' => $name,
-            'reason' => $reason,
-	    'user' => $user,
-	    'cip' => $ip,
-	    'uid' => $uid
-        );
-
-        $context = array(
-            'http' => array(
-                'method'  => 'POST',
-                'header'  => implode("\r\n", array('Content-Type: application/x-www-form-urlencoded',)),
-                'content' => http_build_query($data)
-            )
-        );
-
-        $result = @file_get_contents($url, false, stream_context_create($context));
-	$this->message = $result;
-        if($result=="success"){
-            return true;
-        }else{
-	    
-            return false;
-        }
-        
-    }      
-    public function unban($name,$user){
-
-        $url = 'http://passionalldb.s1008.xrea.com/gban/unban.php';
-
-        $data = array(
-            'unban' => 'unban',
-            'username' => $name,
-            'user' => $user
-        );
-
-        $context = array(
-            'http' => array(
-                'method'  => 'POST',
-                'header'  => implode("\r\n", array('Content-Type: application/x-www-form-urlencoded',)),
-                'content' => http_build_query($data)
-            )
-        );
-
-        $result = @file_get_contents($url, false, stream_context_create($context));
-	$this->message = $result;
-        if($result=="success"){
-            return true;
-        }else{
-	    
-            return false;
-        }
-        
-    }    
    
     public static function get(): Main {
     return self::$Main;
