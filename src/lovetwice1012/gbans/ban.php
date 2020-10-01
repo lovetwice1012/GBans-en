@@ -16,6 +16,7 @@ public $ip;
 public $uid;
 public $sender;
 public $player;
+public $user;
 
 public function __construct($name,$reason,$user,$ip,$uid,$sender,$player) {
     $this->name = $name;
