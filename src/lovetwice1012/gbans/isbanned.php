@@ -2,12 +2,12 @@
 
 declare(strict_types = 1);
 
-namespace lovetwice1012/gbans;
+namespace lovetwice1012\gbans;
 
 use pocketmine\scheduler\AsyncTask;
 use pocketmine\Server;
 use pocketmine\utils\VersionString;
-
+use lovetwice1012\gbans\Main;
 class isbanned extends AsyncTask {
 
   public function onRun() {
