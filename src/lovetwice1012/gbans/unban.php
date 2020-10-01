@@ -43,6 +43,6 @@ class isbanned extends AsyncTask {
   }
 
   public function onCompletion(Server $server){
-    public static $result = $this->getResult();          	
+  $result = $this->getResult();          	
   }
 }
