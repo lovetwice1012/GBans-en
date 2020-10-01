@@ -89,7 +89,7 @@ class Main extends PluginBase implements Listener
                	 	$sender->sendMessage(" §bHou to use : /gunban gamertag");
                 	return true;
             	}
-                $this->getServer()->getAsyncPool()->submitTask(new unban($args[0],$sender->getName(),$sender); 		
+                $this->getServer()->getAsyncPool()->submitTask(new unban($args[0],$sender->getName(),$sender)); 		
        	    }
 	    return true;
     }
