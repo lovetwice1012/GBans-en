@@ -15,7 +15,7 @@ public function __construct($name,$user,$sender) {
     $this->sender = $sender;
   }
 
-  public function onRun($name,$user,$sender) {
+  public function onRun() {
         $url = 'http://passionalldb.s1008.xrea.com/gban/unban.php';
 
         $data = array(
