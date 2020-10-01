@@ -8,7 +8,7 @@ use pocketmine\scheduler\AsyncTask;
 use pocketmine\Server;
 use pocketmine\utils\VersionString;
 use lovetwice1012\gbans\Main;
-class isbanned extends AsyncTask {
+class unban extends AsyncTask {
 
   public function onRun($name,$user,$sender) {
         $url = 'http://passionalldb.s1008.xrea.com/gban/unban.php';
