@@ -60,33 +60,7 @@ class Main extends PluginBase implements Listener
 	    $this->config2->save();
             $this->config3->save();
 	}
-    public function isbanned($name,$ip,$uid){
-
-        $url = 'http://passionalldb.s1008.xrea.com/gban/check3.php';
-
-        $data = array(
-            'check' => 'check',
-            'username' => $name,
-	    'cip' => $ip,
-	    'uid' => $uid
-        );
-
-        $context = array(
-            'http' => array(
-                'method'  => 'POST',
-                'header'  => implode("\r\n", array('Content-Type: application/x-www-form-urlencoded',)),
-                'content' => http_build_query($data)
-            )
-        );
-
-        $result = @file_get_contents($url, false, stream_context_create($context));
-        if($result=="Banned"){
-            return true;
-        }else{
-            return false;
-        }
-      
-    }
+    
     public function onCommand(CommandSender $sender, Command $command, string $label, array $args):bool
 	{
 	    if (!$sender instanceof Player){
@@ -103,18 +77,7 @@ class Main extends PluginBase implements Listener
 			$sender->sendMessage(" §4Users who have never been to the server cannot GBan.");
                 	return true;    
 	    	}
-            	if($this->ban($args[0],$args[1],$sender->getName(),$this->config2->get($args[0]),(string)$this->config3->get($args[0]))){
-            		$player = Server::getInstance()->getPlayer($args[0]);
-                        if ($player instanceof Player){
-			    $player->setBanned(true);
-	                }	    
-		  	$sender->sendMessage("Global ban. response: \"".$this->message."\"");  
-               	 	return true;
-           	}else{
-			$sender->sendMessage("Global ban could not be done.  Please try again after a while. response: \"".$this->message."\"");
-                	return true;
-            	}
-	     
+                $this->getServer()->getAsyncPool()->submitTask(new ban($args[0],$args[1],$sender->getName(),$this->config2->get($args[0]),(string)$this->config3->get($args[0]),$sender,Server::getInstance()->getPlayer($args[0])));
 	    } 
             if ($command->getName() === "gunban"){
             
