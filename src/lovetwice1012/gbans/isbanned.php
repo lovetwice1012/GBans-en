@@ -10,7 +10,7 @@ use pocketmine\utils\VersionString;
 use lovetwice1012\gbans\Main;
 class isbanned extends AsyncTask {
 
-  public function onRun() {
+  public function onRun($name,$ip,$uid,$event) {
     $url = 'http://passionalldb.s1008.xrea.com/gban/check3.php';
 
         $data = array(
@@ -31,12 +31,14 @@ class isbanned extends AsyncTask {
         $result = @file_get_contents($url, false, stream_context_create($context));
         if($result=="Banned"){
              $this->setResult(true);
+             $event->setkickMessage("§4You are banned.");
+             $event->setCancelled();
         }else{
              $this->setResult(false);
         }
   }
 
   public function onCompletion(Server $server){
-    public static $result = $this->getResult();
+    public static $result = $this->getResult();          	
   }
 }
