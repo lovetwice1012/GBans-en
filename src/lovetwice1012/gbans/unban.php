@@ -12,11 +12,10 @@ class unban extends AsyncTask {
 public $name;
 public $sender;
 public $user;
-public function __construct($name,$user,$sender) {
+public function __construct($name,$user) {
     $this->name = $name;
     $this->user = $user;
-    $this->sender = $sender;
-  }
+    }
 
   public function onRun() {
         $url = 'http://passionalldb.s1008.xrea.com/gban/unban.php';
@@ -39,18 +38,15 @@ public function __construct($name,$user,$sender) {
         );
 
         $result = @file_get_contents($url, false, stream_context_create($context));
-        if($result=="success"){
-            $this->setResult(true);
-                	           		$this->sender->sendMessage("Canceled the damage report from this server. response: \"".$result."\"");
-        }else{
-		     	$this->sender->sendMessage("The damage report from this server could not be undone.  The request has been rejected. response: \"".$result."\"");
-                    	$this->sender->sendMessage("§4[Caution] The UNBAN command is executed by the OP who banned the person, and will be rejected unless it is executed on the server that was when the person was banned.");
-		     $this->setResult(false);
-                	
-        }
+        $results = [$result,$this->name,$this-user];
+        $this->setResult($results);        
   }
 
   public function onCompletion(Server $server){
-  $result = $this->getResult();          	
+     $result = $this->getResult();    
+     $core = Main::get();
+    if ($core->isEnabled()) {
+        $core->resunban($result[0], $result[1], $result[2]);
+    }   
   }
 }
