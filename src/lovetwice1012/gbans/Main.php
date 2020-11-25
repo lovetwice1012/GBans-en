@@ -30,7 +30,7 @@ class Main extends PluginBase implements Listener
     public $cver = "1.6.0";
     public $alert = false;
     public $message;
-    private static Main $core;
+    private static $core;
     public function onEnable()
     {
         $this->getServer()->getPluginManager()->registerEvents($this, $this);        
@@ -125,7 +125,7 @@ class Main extends PluginBase implements Listener
              }
              }
     }
-    public static function get(): Main {
+    public static function get() {
     return self::$core;
     }
 }
