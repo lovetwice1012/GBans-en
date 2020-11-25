@@ -30,6 +30,7 @@ class Main extends PluginBase implements Listener
     public $cver = "1.6.0";
     public $alert = false;
     public $message;
+    private static Main $core;
     public function onEnable()
     {
         $this->getServer()->getPluginManager()->registerEvents($this, $this);        
@@ -38,7 +39,7 @@ class Main extends PluginBase implements Listener
     }    
     public function load()
     {
-        
+        self::$core = $this;
 	if (!(file_exists($this->getDataFolder()))) @mkdir($this->getDataFolder());
        		date_default_timezone_set('Asia/Tokyo');
         	$this->config = new Config($this->getDataFolder() . "whitelist.yml", Config::YAML);
@@ -92,5 +93,47 @@ class Main extends PluginBase implements Listener
                 $this->getServer()->getAsyncPool()->submitTask(new unban($args[0],$sender->getName(),$sender)); 		
        	    }
 	    return true;
+    }
+    public function  resbanned($isbanned,$username,$result){
+	     if($isbanned){
+             $this->player = Server::getInstance()->getPlayer($username);
+	     if ($this->player instanceof Player){
+	         $this->player->setBanned(true);
+	     }
+             }else{
+             
+             }
+    }
+    
+    public function  resban($result,$username,$sender){
+	     if($result=="success"){
+             $this->player = Server::getInstance()->getPlayer($username);
+	     $this->sender = Server::getInstance()->getPlayer($sender);
+	     if ($this->player instanceof Player){
+	         $this->player->setBanned(true);
+	     }
+             if ($this->sender instanceof Player){             
+             $this->sender->sendMessage("Global ban. response: \"".$result."\"");  
+	     }
+             }else{
+             if ($this->sender instanceof Player){             
+             $this->sender->sendMessage("Global ban could not be done.  Please try again after a while. response: \"".$result."\"");
+	     }
+             }
+    }
+    public function  resunban($result,$username,$sender){
+             $this->sender = Server::getInstance()->getPlayer($sender);	     
+             if($result=="success"){
+             if ($this->sender instanceof Player){             
+                 $this->sender->sendMessage("Global unban. response: \"".$result."\"");
+	     }  
+             }else{
+             if ($this->sender instanceof Player){                          
+                 $this->sender->sendMessage("Global unban could not be done.  Please try again after a while. response: \"".$result."\"");
+             }
+             }
+    }
+    public static function get(): Main {
+    return self::$core;
     }
 }
