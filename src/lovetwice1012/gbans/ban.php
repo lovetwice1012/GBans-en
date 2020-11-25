@@ -47,7 +47,7 @@ public function __construct($name,$reason,$user,$ip,$uid) {
         );
 
         $result = @file_get_contents($url, false, stream_context_create($context));
-        $results = [$result,$username,$sender]
+        $results = [$result,$this->username,$this->user]
         $this->setResult($results);
   }
 
