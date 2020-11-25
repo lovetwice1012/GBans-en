@@ -89,6 +89,7 @@ class Main extends PluginBase implements Listener
 	    return true;
     }
     public function  resbanned($isbanned,$username,$result){
+             echo $result;
 	     if($isbanned){
              $player = Server::getInstance()->getPlayer($username);
 	     if ($player instanceof Player){
