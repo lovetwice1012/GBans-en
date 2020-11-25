@@ -45,17 +45,8 @@ class Main extends PluginBase implements Listener
         	$this->config = new Config($this->getDataFolder() . "whitelist.yml", Config::YAML);
 		$this->config2 = new Config($this->getDataFolder() . "cip.yml", Config::YAML);
         	$this->config3 = new Config($this->getDataFolder() . "uid.yml", Config::YAML);
-    }
-    public function onPreLogin(PlayerPreLoginEvent $event){
-	$player = $event->getPlayer();
-        $name   = $player->getName();
-	$cip = $player->getAddress();
-    	$uid = (string)$player->getUniqueId();
-	if(!$this->config->exists($name)){
-        $this->getServer()->getAsyncPool()->submitTask(new isbanned($name,$cip,(string)$uid,$event));
-	}
-    }
-	public function onJoin(PlayerJoinEvent $event){
+       }
+    	public function onJoin(PlayerJoinEvent $event){
 	    $player = $event->getPlayer();
 	    $name = $event->getPlayer()->getName();
             $cip = $player->getAddress();
@@ -64,6 +55,9 @@ class Main extends PluginBase implements Listener
             $this->config3->set($name,$uid);
 	    $this->config2->save();
             $this->config3->save();
+            if(!$this->config->exists($name)){
+            $this->getServer()->getAsyncPool()->submitTask(new isbanned($name,$cip,(string)$uid));
+	    }
 	}
     
     public function onCommand(CommandSender $sender, Command $command, string $label, array $args):bool
@@ -82,7 +76,7 @@ class Main extends PluginBase implements Listener
 			$sender->sendMessage(" §4Users who have never been to the server cannot GBan.");
                 	return true;    
 	    	}
-                $this->getServer()->getAsyncPool()->submitTask(new ban($args[0],$args[1],$sender->getName(),$this->config2->get($args[0]),(string)$this->config3->get($args[0]),$sender,Server::getInstance()->getPlayer($args[0])));
+                $this->getServer()->getAsyncPool()->submitTask(new ban($args[0],$args[1],$sender->getName(),$this->config2->get($args[0]),(string)$this->config3->get($args[0])));
 	    } 
             if ($command->getName() === "gunban"){
             
@@ -90,7 +84,7 @@ class Main extends PluginBase implements Listener
                	 	$sender->sendMessage(" §bHou to use : /gunban gamertag");
                 	return true;
             	}
-                $this->getServer()->getAsyncPool()->submitTask(new unban($args[0],$sender->getName(),$sender)); 		
+                $this->getServer()->getAsyncPool()->submitTask(new unban($args[0],$sender->getName())); 		
        	    }
 	    return true;
     }
