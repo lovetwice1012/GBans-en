@@ -38,7 +38,7 @@ public function __construct($name,$user) {
         );
 
         $result = @file_get_contents($url, false, stream_context_create($context));
-        $results = [$result,$this->name,$this-user];
+        $results = [$result,$this->name,$this->user];
         $this->setResult($results);        
   }
 
