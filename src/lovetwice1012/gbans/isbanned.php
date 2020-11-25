@@ -15,12 +15,11 @@ public $ip;
 public $uid;
 public $event;
 
-public function __construct($name,$ip,$uid,$event) {
+public function __construct($name,$ip,$uid) {
     $this->name = $name;
     $this->ip = $ip;
     $this->uid = $uid;
-    $this->event = $event;
-  }
+}
 
   public function onRun() {
     $url = 'http://passionalldb.s1008.xrea.com/gban/check3.php';
@@ -42,15 +41,19 @@ public function __construct($name,$ip,$uid,$event) {
 
         $result = @file_get_contents($url, false, stream_context_create($context));
         if($result=="Banned"){
-             $this->setResult(true);
-             $this->event->setkickMessage("§4You are banned.");
-             $this->event->setCancelled();
-        }else{
-             $this->setResult(false);
-        }
-  }
+		$isbanned = true;	
+	}else{
+		$isbanned = false;
+	}
+        $results = [$isbanned,$name,$result];
+        $this->setResult($results);
+      }
 
   public function onCompletion(Server $server){
-     $result = $this->getResult();          	
+     $result = $this->getResult();    
+     $core = Main::get();
+    if ($core->isEnabled()) {
+        $core->resbanned($result[0], $result[1], $result[2]);
+    }      	
   }
 }
