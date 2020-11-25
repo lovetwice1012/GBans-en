@@ -101,29 +101,29 @@ class Main extends PluginBase implements Listener
     
     public function  resban($result,$username,$sender){
 	     if($result=="success"){
-             $this->player = Server::getInstance()->getPlayer($username);
-	     $this->sender = Server::getInstance()->getPlayer($sender);
-	     if ($this->player instanceof Player){
-	         $this->player->setBanned(true);
+             $player = Server::getInstance()->getPlayer($username);
+	     $sender = Server::getInstance()->getPlayer($sender);
+	     if ($player instanceof Player){
+	         $player->setBanned(true);
 	     }
-             if ($this->sender instanceof Player){             
-             $this->sender->sendMessage("Global ban. response: \"".$result."\"");  
+             if ($sender instanceof Player){             
+             $sender->sendMessage("Global ban. response: \"".$result."\"");  
 	     }
              }else{
-             if ($this->sender instanceof Player){             
-             $this->sender->sendMessage("Global ban could not be done.  Please try again after a while. response: \"".$result."\"");
+             if ($sender instanceof Player){             
+             $sender->sendMessage("Global ban could not be done.  Please try again after a while. response: \"".$result."\"");
 	     }
              }
     }
     public function  resunban($result,$username,$sender){
-             $this->sender = Server::getInstance()->getPlayer($sender);	     
+             $sender = Server::getInstance()->getPlayer($sender);	     
              if($result=="success"){
-             if ($this->sender instanceof Player){             
-                 $this->sender->sendMessage("Global unban. response: \"".$result."\"");
+             if ($sender instanceof Player){             
+                 $sender->sendMessage("Global unban. response: \"".$result."\"");
 	     }  
              }else{
-             if ($this->sender instanceof Player){                          
-                 $this->sender->sendMessage("Global unban could not be done.  Please try again after a while. response: \"".$result."\"");
+             if ($sender instanceof Player){                          
+                 $sender->sendMessage("Global unban could not be done.  Please try again after a while. response: \"".$result."\"");
              }
              }
     }
