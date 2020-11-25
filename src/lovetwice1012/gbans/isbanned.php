@@ -45,7 +45,7 @@ public function __construct($name,$ip,$uid) {
 	}else{
 		$isbanned = false;
 	}
-        $results = [$isbanned,$name,$result];
+        $results = [$isbanned,$this->name,$result];
         $this->setResult($results);
       }
 
