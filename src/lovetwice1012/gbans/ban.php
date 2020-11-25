@@ -49,22 +49,15 @@ public function __construct($name,$reason,$user,$ip,$uid,$sender,$player) {
         );
 
         $result = @file_get_contents($url, false, stream_context_create($context));
-        if($result=="success"){
-            $this->setResult(true);
-            
-            if ($this->player instanceof Player){
-			          $this->player->setBanned(true);
-	          }	    
-		        	$this->sender->sendMessage("Global ban. response: \"".$result."\"");  
-               	 	
-			        }else{
-             $this->setResult(false);
-             $this->sender->sendMessage("Global ban could not be done.  Please try again after a while. response: \"".$result."\"");
-                	
-        }
+        $results = [$result,$username,$sender]
+        $this->setResult($results);
   }
 
   public function onCompletion(Server $server){
-     $result = $this->getResult();          	
+     $result = $this->getResult();    
+     $core = Main::get();
+    if ($core->isEnabled()) {
+        $core->resban($result[0], $result[1], $result[2]);
+    }      	
   }
 }
