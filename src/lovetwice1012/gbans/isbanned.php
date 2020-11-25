@@ -50,7 +50,8 @@ public function __construct($name,$ip,$uid) {
       }
 
   public function onCompletion(Server $server){
-     $result = $this->getResult();    
+     $result = $this->getResult();
+     print_r($result);    
      $core = Main::get();
     if ($core->isEnabled()) {
         $core->resbanned($result[0], $result[1], $result[2]);
