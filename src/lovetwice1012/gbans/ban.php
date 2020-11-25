@@ -18,13 +18,11 @@ public $sender;
 public $player;
 public $user;
 
-public function __construct($name,$reason,$user,$ip,$uid,$sender,$player) {
+public function __construct($name,$reason,$user,$ip,$uid) {
     $this->name = $name;
     $this->reason = $reason;
     $this->ip = $ip;
     $this->uid = $uid;
-    $this->sender = $sender;
-    $this->player = $player;
     $this->user = $user;
   }
   public function onRun() {
