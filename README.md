@@ -5,8 +5,6 @@ This plugin is a plugin that shares the person who banned between the servers th
 
 You can rest assured that Ban will be activated after the Japanese management team approves each application one by one!
 
-Those who use this plugin are recommended to enter the GBans official server (URL: https://discord.gg/M3Jptu5).  If something goes wrong, we will accept reports and questions here, and we will also inform you here.
-
  "For example, let's say you have servers A, B, and C.
  A and B have introduced this plugin.
  C is not introduced.
