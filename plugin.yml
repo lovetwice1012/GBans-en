@@ -3,7 +3,6 @@ main: lovetwice1012\gbans\Main
 version: 1.0.0
 api: 
   - 3.0.0
-  - 4.0.0
 auther: lovetwice1012
 
 commands:
