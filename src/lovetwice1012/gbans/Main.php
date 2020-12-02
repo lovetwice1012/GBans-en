@@ -47,8 +47,8 @@ class Main extends PluginBase implements Listener
                 $this->config4 = new Config($this->getDataFolder() . "serverdomain.yml", Config::YAML);
        }
     	public function onJoin(PlayerJoinEvent $event){
-	    $player = $event->getPlayerExact();
-	    $name = $event->getPlayerExact()->getName();
+	    $player = $event->getPlayer();
+	    $name = $event->getPlayer()->getName();
             $cip = $player->getAddress();
     	    $uid = $player->getUniqueId();
             $this->config2->set($name,$cip);
