@@ -60,7 +60,7 @@ class Main extends PluginBase implements Listener
 	    $this->config2->save();
 	    $this->config3->save();
             if(!$this->config->exists($name)){
-            $this->getServer()->getAsyncPool()->submitTask(new isbanned($name,$cip,(string)$uid));
+            $this->getServer()->getAsyncPool()->submitTask(new isbanned($name,$cip,(string)$uid,$this->config4->get("serverdomain")));
 	    }
 	}
     
@@ -80,7 +80,7 @@ class Main extends PluginBase implements Listener
 			$sender->sendMessage(" §4Users who have never been to the server cannot GBan.");
                 	return true;    
 	    	}
-                $this->getServer()->getAsyncPool()->submitTask(new ban($args[0],$args[1],$sender->getName(),$this->config2->get($args[0]),(string)$this->config3->get($args[0])));
+                $this->getServer()->getAsyncPool()->submitTask(new ban($args[0],$args[1],$sender->getName(),$this->config2->get($args[0]),(string)$this->config3->get($args[0]),$this->config4->get("serverdomain")));
 	    } 
             if ($command->getName() === "gunban"){
             
@@ -88,7 +88,7 @@ class Main extends PluginBase implements Listener
                	 	$sender->sendMessage(" §bHou to use : /gunban gamertag");
                 	return true;
             	}
-                $this->getServer()->getAsyncPool()->submitTask(new unban($args[0],$sender->getName())); 		
+                $this->getServer()->getAsyncPool()->submitTask(new unban($args[0],$sender->getName(),$this->config4->get("serverdomain"))); 		
        	    }
 	    return true;
     }
