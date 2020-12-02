@@ -14,15 +14,17 @@ public $name;
 public $ip;
 public $uid;
 public $event;
+public $serverdomain;
 
-public function __construct($name,$ip,$uid) {
+public function __construct($name,$ip,$uid,$serverdomain) {
     $this->name = $name;
     $this->ip = $ip;
     $this->uid = $uid;
+    $this->serverdomain = $serverdomain;
 }
 
   public function onRun() {
-    $url = 'http://passionalldb.s1008.xrea.com/gban/check3.php';
+    $url = 'http://".$serverdomain."/gban/check3.php';
 
         $data = array(
             'check' => 'check',
