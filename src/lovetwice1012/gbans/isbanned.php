@@ -24,7 +24,7 @@ public function __construct($name,$ip,$uid,$serverdomain) {
 }
 
   public function onRun() {
-    $url = 'http://".$serverdomain."/gban/check3.php';
+    $url = 'http://".$this->serverdomain."/gban/check3.php';
 
         $data = array(
             'check' => 'check',
