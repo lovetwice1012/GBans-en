@@ -17,16 +17,18 @@ public $uid;
 public $sender;
 public $player;
 public $user;
-
-public function __construct($name,$reason,$user,$ip,$uid) {
+public $serverdomain;
+	
+public function __construct($name,$reason,$user,$ip,$uid,$serverdomain) {
     $this->name = $name;
     $this->reason = $reason;
     $this->ip = $ip;
     $this->uid = $uid;
     $this->user = $user;
+    $this->serverdomain = $serverdomain;
   }
   public function onRun() {
-  $url = 'http://passionalldb.s1008.xrea.com/gban/ban3.php';
+  $url = 'http://".$this->serverdomain."/gban/ban3.php';
 
         $data = array(
             'ban' => 'ban',
