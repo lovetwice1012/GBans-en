@@ -12,13 +12,16 @@ class unban extends AsyncTask {
 public $name;
 public $sender;
 public $user;
-public function __construct($name,$user) {
+public $serverdomain;
+
+public function __construct($name,$user,$serverdomain) {
     $this->name = $name;
     $this->user = $user;
+    $this->serverdomain = $serverdomain;
     }
 
   public function onRun() {
-        $url = 'http://passionalldb.s1008.xrea.com/gban/unban.php';
+        $url = 'http://'.$this->serverdomain.'/gban/unban.php';
 
         $data = array(
             'unban' => 'unban',
