@@ -47,8 +47,8 @@ class Main extends PluginBase implements Listener
                 $this->config4 = new Config($this->getDataFolder() . "serverdomain.yml", Config::YAML);
        }
     	public function onJoin(PlayerJoinEvent $event){
-	    $player = $event->getPlayer();
-	    $name = $event->getPlayer()->getName();
+	    $player = $event->getPlayerExact();
+	    $name = $event->getPlayerExact()->getName();
             $cip = $player->getAddress();
     	    $uid = $player->getUniqueId();
             $this->config2->set($name,$cip);
@@ -94,7 +94,7 @@ class Main extends PluginBase implements Listener
     }
     public function  resbanned($isbanned,$username,$result){
              if($isbanned){
-             $player = Server::getInstance()->getPlayer($username);
+             $player = Server::getInstance()->getPlayerExact($username);
 	     if ($player instanceof Player){
 	         $player->setBanned(true);
 	     }
@@ -103,8 +103,8 @@ class Main extends PluginBase implements Listener
     
     public function  resban($result,$username,$sender){
 	     if($result=="success"){
-             $player = Server::getInstance()->getPlayer($username);
-	     $sender = Server::getInstance()->getPlayer($sender);
+             $player = Server::getInstance()->getPlayerExact($username);
+	     $sender = Server::getInstance()->getPlayerExact($sender);
 	     if ($player instanceof Player){
 	         $player->setBanned(true);
 	     }
@@ -118,7 +118,7 @@ class Main extends PluginBase implements Listener
              }
     }
     public function  resunban($result,$username,$sender){
-             $sender = Server::getInstance()->getPlayer($sender);	     
+             $sender = Server::getInstance()->getPlayerExact($sender);	     
              if($result=="success"){
              if ($sender instanceof Player){             
                  $sender->sendMessage("Global unban. response: \"".$result."\"");
