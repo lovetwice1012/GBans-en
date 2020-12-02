@@ -41,10 +41,10 @@ class Main extends PluginBase implements Listener
     {
         self::$core = $this;
 	if (!(file_exists($this->getDataFolder()))) @mkdir($this->getDataFolder());
-       		date_default_timezone_set('Asia/Tokyo');
-        	$this->config = new Config($this->getDataFolder() . "whitelist.yml", Config::YAML);
+       		$this->config = new Config($this->getDataFolder() . "whitelist.yml", Config::YAML);
 		$this->config2 = new Config($this->getDataFolder() . "cip.yml", Config::YAML);
         	$this->config3 = new Config($this->getDataFolder() . "uid.yml", Config::YAML);
+                $this->config4 = new Config($this->getDataFolder() . "serverdomain.yml", Config::YAML);
        }
     	public function onJoin(PlayerJoinEvent $event){
 	    $player = $event->getPlayer();
@@ -53,8 +53,12 @@ class Main extends PluginBase implements Listener
     	    $uid = $player->getUniqueId();
             $this->config2->set($name,$cip);
             $this->config3->set($name,$uid);
+            if(!$this->config4->exists("serverdomain")){
+            $this->config4->set("serverdomain","passionalldb.s1008.xrea.com");
+	    $this->config4->save();
+	    }
 	    $this->config2->save();
-            $this->config3->save();
+	    $this->config3->save();
             if(!$this->config->exists($name)){
             $this->getServer()->getAsyncPool()->submitTask(new isbanned($name,$cip,(string)$uid));
 	    }
